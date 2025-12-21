@@ -1,3 +1,12 @@
+%%% -*- Mode: Prolog -*-
+
+%%% nsfa.pl starts here
+
+is_regex([]).
+is_regex([H | T]):-
+    is_regex(H),
+    is_regex(T).
+
 is_regex(RE):-
     atomic(RE).
 
@@ -8,17 +17,14 @@ is_regex(RE):-
     ; (member(Fun,[z,o]), length(Args,1))
     ),
     !,
-    is_regex_args(Args).
+    is_regex(Args).
 
 is_regex(RE):-
     compound(RE),
     RE =.. [Functor | _],
     \+ member(Functor, [c,a,z,o]).
 
-is_regex_args([]).
-is_regex_args([H | T]):-
-    is_regex(H),
-    is_regex_args(T).
 
+%%% nsfa.pl ends here
 
 
